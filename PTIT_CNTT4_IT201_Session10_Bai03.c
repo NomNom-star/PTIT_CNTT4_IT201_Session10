@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+Node* createNode(int value) {
+    Node* node = (Node*)malloc(sizeof(Node));
+    node->data = value;
+    node->next = NULL;
+    return node;
+}
+
+void printList(Node* head) {
+    while (head) {
+        printf("%d", head->data);
+        if (head->next) printf("->");
+        head = head->next;
+    }
+    printf("->NULL\n");
+}
+
+Node* insertLast(Node* head, int value) {
+    Node* node = createNode(value);
+    if (!head) return node;
+    Node* temp = head;
+    while (temp->next) temp = temp->next;
+    temp->next = node;
+    return head;
+}
+
+int main() {
+    Node* head = createNode(5);
+    head->next = createNode(4);
+    head->next->next = createNode(3);
+    head->next->next->next = createNode(2);
+    head->next->next->next->next = createNode(1);
+
+    printList(head);
+
+    int x;
+    scanf("%d", &x);
+
+    head = insertLast(head, x);
+
+    printList(head);
+
+    return 0;
+}
